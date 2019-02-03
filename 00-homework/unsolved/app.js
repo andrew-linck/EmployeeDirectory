@@ -8,7 +8,7 @@ const renderEmployees = function(employeeList, element) {
         const employeeOfficeNum = employeeList[i].officeNum;
         const employeePhoneNum = employeeList[i].phoneNum;
 
-        $(element).append(`<br>${employeeName}<br>${employeeOfficeNum}<br>${employeePhoneNum}`)
+        $(element).append(`<div id="list"><br>${employeeName}<br>${employeeOfficeNum}<br>${employeePhoneNum}</div>`)
     }
 }
 
