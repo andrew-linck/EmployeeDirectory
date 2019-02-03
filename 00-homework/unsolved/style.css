@@ -80,7 +80,7 @@ input[type=text], select {
     margin: 8px 0;
 }
 
-#list {
+div {
     margin: 5px;
     border: 1px solid black;
 }
