@@ -2,42 +2,65 @@
     $('section').hide();
 })();
 
-const renderEmployees = function(employeeList) {
+const renderEmployees = function(employeeList, element) {
     for (var i in employeeList) {
         const employeeName = employeeList[i].name;
         const employeeOfficeNum = employeeList[i].officeNum;
         const employeePhoneNum = employeeList[i].phoneNum;
 
-        const employeeDiv = $('div').append(`${employeeName}<br>${employeeOfficeNum}<br>${employeePhoneNum}`)
+        $(element).append(`<br>${employeeName}<br>${employeeOfficeNum}<br>${employeePhoneNum}`)
     }
-    return employeeDiv
 }
 
 const showView = function() {
     $('section').hide();
+    $('#employeeDisplay').empty();
     $('#view').show();
-    renderEmployees(employeeList);
+    renderEmployees(employeeList, '#employeeDisplay');
 };
 
 const showAdd = function() {
     $('section').hide();
+    $('#employeeAddDisplay').empty();
     $('#add').show();
+    renderEmployees(employeeList, '#employeeAddDisplay');
 };
 
 const showVerify = function() {
     $('section').hide();
+    $('#employeeVerifyDisplay').empty();
     $('#verify').show();
 };
 
-const displayAddedEmployeeList = function() {
-    $('section').hide();
-    $('#verify').show();
+const addEmployee = function() {
+    var newEmployee = {};
+    newEmployee.name = $('#employeeName').val()
+    newEmployee.officeNum = $('#officeNumber').val()
+    newEmployee.phoneNum = $('#phoneNumber').val()
+    employeeList.push(newEmployee);
+    $('#employeeAddDisplay').empty();
+    renderEmployees(employeeList, '#employeeAddDisplay');
 };
 
+const verifyEmployee = function() {
+    var em = $('#employeeNameToVerify').val();
+    $("#employeeVerifyDisplay").empty();
+
+    var found = false;
+    for (var i in employeeList) {
+        if(employeeList[i].name.toLowerCase() == em.toLowerCase()) {
+            $('#employeeVerifyDisplay').append("<div>Found: " + employeeList[i].name + "</div>");
+            found = true;
+        }
+    }
+    if (!found) {
+        $("#employeeVerifyDisplay").append("<div>No employee with name: " + em + " exists</div>");
+    }
+};
 
 $('#viewBtn').on('click', showView);
 $('#addBtn').on('click', showAdd);
 $('#verifyBtn').on('click', showVerify);
 
-$('#addEmployeeBtn').on('click', displayAddedEmployeeList);
-$('#verifyEmployeeBtn').on('click', displayVerifiedEmployeeList);
+$('#addEmployeeBtn').on('click', addEmployee);
+$('#verifyEmployeeBtn').on('click', verifyEmployee);
